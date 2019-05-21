@@ -1,7 +1,7 @@
 .PHONY: help build dev test test-env
 
 # Docker image name and tag
-IMAGE:=sfabbro/sitelle-stack
+IMAGE:=sfabbro/sitelle-notebook
 TAG?=latest
 # Shell that make should use
 SHELL:=bash
