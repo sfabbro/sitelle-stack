@@ -35,6 +35,5 @@ USER root
 RUN $CONDA_DIR/envs/python2/bin/python -m ipykernel install && \
     $CONDA_DIR/envs/python2/bin/kernda -o -y /usr/local/share/jupyter/kernels/python2/kernel.json && \
     conda remove -n python2 kernda
-#    $CONDA_DIR/envs/python2/bin/kernda -o -y $CONDA_DIR/envs/python2/share/jupyter/kernels/python2/kernel.json && \
 
 USER $NB_USER
