@@ -7,16 +7,14 @@ RUN conda create --quiet --yes -p $CONDA_DIR/envs/python2 python=2.7 \
 	ipython ipykernel ipyevents kernda \
 	cython bokeh pandas matplotlib scipy seaborn h5py \
 	dill bottleneck scikit-learn jupyterlab notebook scikit-image pillow && \
-    conda install -n python2 -c astropy pyregion astropy photutils ginga
+    conda install -n python2 -c astropy pyregion astropy photutils ginga specutils extinction reproject aplpy
 
 RUN $CONDA_DIR/envs/python2/bin/pip --no-cache install gvar lsqfit pp --no-deps && \
+    $CONDA_DIR/envs/python2/bin/pip --no-cache install NebulaBayes astrodendro \
     $CONDA_DIR/envs/python2/bin/pip --no-cache install git+https://github.com/thomasorb/orb.git && \
     $CONDA_DIR/envs/python2/bin/pip --no-cache install git+https://github.com/thomasorb/orcs.git && \
     $CONDA_DIR/envs/python2/bin/pip --no-cache install vos cadctap cadcdata cadccutout caom2utils && \
     $CONDA_DIR/envs/python2/bin/pip --no-cache install --pre astroquery
-
-RUN conda install -n python2 -c astropy specutils extinction reproject aplpy
-RUN $CONDA_DIR/envs/python2/bin/pip --no-cache install NebulaBayes astrodendro
 
 RUN conda remove -n python2 --quiet --yes --force qt pyqt && \
     conda clean --all -f -y
@@ -33,6 +31,7 @@ USER root
 
 # Create a global kernelspec in the image and modify it so that it properly activates
 # the python2 conda environment.
+
 RUN $CONDA_DIR/envs/python2/bin/python -m ipykernel install && \
     $CONDA_DIR/envs/python2/bin/kernda -o -y /usr/local/share/jupyter/kernels/python2/kernel.json && \
     conda remove -n python2 kernda
